@@ -15,8 +15,9 @@ namespace MattiDb.Entities
         public int MittaustulosId { get; set; }
 
         [StringLength(50)]
-        public string Nimi { get; set; }
+        public string? Nimi { get; set; }
         public int? Arvo { get; set; }
         public DateTimeOffset InsertDate { get; set; }
+        public DateTimeOffset UpdateDate { get; set; }
     }
 }

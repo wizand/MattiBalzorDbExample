@@ -20,14 +20,25 @@
             <th>Id</th>
             <th>Nimi</th>
             <th>Arvo</th>
+            <th>Insert Date</th>
+            <th>Update Date</th>
         </tr>
 
         @foreach(var vm in viewModels)
         {
             <tr>
                 <td>@vm.Id</td>
-                <td>@vm.Nimi</td>
-                <td>@vm.Arvo</td>
+                <td><InputText @bind-Value="@vm.Nimi"></InputText></td>
+                <td><InputNumber TValue="int" @bind-Value="@vm.Arvo"></InputNumber></td>
+                <td>@vm.InsertDate</td>
+                <td>@vm.UpdateDate</td>
+                <td><Button class="btn btn-danger" @onclick="() => RemoveMittaustulos(vm)">Remove</Button></td>
+                <td>
+                    @if (vm.HasChanges)
+                    {
+                        <button class="btn btn-success" @onclick="() => UpdateMittaustulosToDb(vm)">Update</button>    
+                    }
+                </td>
             </tr>
         }
 
@@ -36,9 +47,9 @@
 }
 
 
-Nimi: <input type="text" @bind-value="@newViewModel.Nimi"/>
+Nimi: <input type="text" @bind-value="@newViewModel.Nimi" />
 <br />Arvo: <input type="text" @bind-value="@newViewModel.Arvo" />
-<br /><button class="btn btn-warning" value="Save to database" @onclick="@SaveViewModel" />
+<br /><button class="btn btn-warning" value="Save to database" @onclick="@SaveViewModel" >Save new mittaustulos</button>
 @code 
 {
 
@@ -50,12 +61,12 @@ Nimi: <input type="text" @bind-value="@newViewModel.Nimi"/>
         base.OnInitialized();
     }
 
-    private void UpdateViewModelTable()
+    private void UpdateViewModelTable(bool force = false)
     {
-        var listaMittaustuloksista = mattiDbService.GetAllMittaustulos();
 
-        if (viewModels == null)
+        if (viewModels == null || force)
         {
+            var listaMittaustuloksista = mattiDbService.GetAllMittaustulos();
             viewModels = new();
             foreach (Mittaustulos mt in listaMittaustuloksista)
             {
@@ -69,7 +80,20 @@ Nimi: <input type="text" @bind-value="@newViewModel.Nimi"/>
     {
         mattiDbService.SaveMittaustulos(newViewModel.MittaustulosModel);
         newViewModel = new();
-        viewModels = null;
+
+        UpdateViewModelTable(true);
+    }
+
+    public void RemoveMittaustulos(MattiViewModel vm)
+    {
+        mattiDbService.RemoveMittaustulos(vm.MittaustulosModel);
+        UpdateViewModelTable(true);
+    }
+
+    public void UpdateMittaustulosToDb(MattiViewModel vm)
+    {
+        mattiDbService.UpdateMittaustulos(vm.MittaustulosModel);
+        vm.HasChanges = false;
         UpdateViewModelTable();
     }
 }

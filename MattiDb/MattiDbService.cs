@@ -38,13 +38,29 @@ namespace MattiDb
 
         public int SaveMittaustulos(Mittaustulos mittaustulos) 
         {
+            mittaustulos.InsertDate = DateTimeOffset.UtcNow;
+            mittaustulos.UpdateDate = mittaustulos.InsertDate;
             using var ctx = AppDbContextInstance;
             ctx.Mittaustulos.Add(mittaustulos);
             int i = ctx.SaveChanges();
             return i;
         }
 
+        public int RemoveMittaustulos(Mittaustulos mittaustulos)
+        {
+            using var ctx = AppDbContextInstance;
 
+            ctx.Mittaustulos.Remove(mittaustulos);
+            return ctx.SaveChanges();
+        }
+
+        public int UpdateMittaustulos(Mittaustulos mittaustulos)
+        {
+            mittaustulos.UpdateDate = DateTimeOffset.UtcNow;
+            using var ctx = AppDbContextInstance;
+            ctx.Update(mittaustulos);
+            return ctx.SaveChanges();
+        }
 
 
 

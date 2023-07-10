@@ -16,11 +16,25 @@ namespace MattiExampleUi.Data
         }
         
         public Mittaustulos MittaustulosModel { get; set; }
-        public int Id { get => MittaustulosModel.MittaustulosId; set => MittaustulosModel.MittaustulosId = value; }
-        public string Nimi { get => MittaustulosModel.Nimi; set => MittaustulosModel.Nimi = value; }
+        public bool HasChanges = false;
+        public int Id 
+        {
+            get => MittaustulosModel.MittaustulosId; 
+        }
+
+        public string Nimi { get => MittaustulosModel.Nimi; 
+            set 
+            {
+                if (MittaustulosModel.Nimi == value) 
+                { 
+                    return; 
+                }
+                MittaustulosModel.Nimi = value;
+                HasChanges = true;
+            }
+        }
 
         public int Arvo
-
         {
             get
             {
@@ -31,7 +45,32 @@ namespace MattiExampleUi.Data
 
                 return MittaustulosModel.Arvo.Value;
             }
-            set => MittaustulosModel.Arvo = value;
-        } 
+            set
+            {
+                if (MittaustulosModel.Arvo == value)
+                {
+                    return;
+                }
+
+                MittaustulosModel.Arvo = value;
+                HasChanges = true;
+            }
+        }
+
+        public string InsertDate
+        {
+            get
+            {
+                return MittaustulosModel.InsertDate.ToString();
+            } 
+        }
+
+        public string UpdateDate
+        {
+            get
+            {
+                return MittaustulosModel.UpdateDate.ToString();
+            }
+        }
     }
 }
