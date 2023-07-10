@@ -1,0 +1,75 @@
+﻿@page "/"
+@using MattiDb;
+@using MattiDb.Entities;
+@using MattiExampleUi.Data;
+@inject MattiDbService mattiDbService
+
+
+<PageTitle>Index</PageTitle>
+
+<h1>Mittaustulokset</h1>
+
+@if (viewModels == null)
+{
+    <p>Ootellaas rauhassa</p>    
+
+} else
+{
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>Nimi</th>
+            <th>Arvo</th>
+        </tr>
+
+        @foreach(var vm in viewModels)
+        {
+            <tr>
+                <td>@vm.Id</td>
+                <td>@vm.Nimi</td>
+                <td>@vm.Arvo</td>
+            </tr>
+        }
+
+    </table>    
+
+}
+
+
+Nimi: <input type="text" @bind-value="@newViewModel.Nimi"/>
+<br />Arvo: <input type="text" @bind-value="@newViewModel.Arvo" />
+<br /><button class="btn btn-warning" value="Save to database" @onclick="@SaveViewModel" />
+@code 
+{
+
+    public MattiViewModel newViewModel = new();
+    List<MattiViewModel> viewModels = null;
+    protected override void OnInitialized()
+    {
+        UpdateViewModelTable();
+        base.OnInitialized();
+    }
+
+    private void UpdateViewModelTable()
+    {
+        var listaMittaustuloksista = mattiDbService.GetAllMittaustulos();
+
+        if (viewModels == null)
+        {
+            viewModels = new();
+            foreach (Mittaustulos mt in listaMittaustuloksista)
+            {
+                viewModels.Add(new MattiViewModel(mt));            }
+        }
+
+    }
+
+
+    public void SaveViewModel()
+    {
+        mattiDbService.SaveMittaustulos(newViewModel.MittaustulosModel);
+        newViewModel = new();
+        viewModels = null;
+        UpdateViewModelTable();
+    }
+}

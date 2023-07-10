@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33815.320
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MattiExampleUi", "MattiExampleUi\MattiExampleUi.csproj", "{941C20EC-BFEA-41E1-A895-836B39642C2B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MattiDb", "MattiDb\MattiDb.csproj", "{4A5CD8FD-E509-4596-82AB-B34AC94AA36B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{941C20EC-BFEA-41E1-A895-836B39642C2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{941C20EC-BFEA-41E1-A895-836B39642C2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{941C20EC-BFEA-41E1-A895-836B39642C2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{941C20EC-BFEA-41E1-A895-836B39642C2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A5CD8FD-E509-4596-82AB-B34AC94AA36B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A5CD8FD-E509-4596-82AB-B34AC94AA36B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A5CD8FD-E509-4596-82AB-B34AC94AA36B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A5CD8FD-E509-4596-82AB-B34AC94AA36B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {39EE3109-1519-49C5-B687-D7B9B6AEE590}
+	EndGlobalSection
+EndGlobal
